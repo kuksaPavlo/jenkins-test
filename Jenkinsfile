@@ -1,9 +1,15 @@
 pipeline {
-    agent { docker { image 'maven:3.9.9-eclipse-temurin-21-alpine' } }
+    agent none
     stages {
-        stage('build') {
+        stage('Build') {
+            agent {
+                docker {
+                    image 'maven:3.9.9-eclipse-temurin-21-alpine'
+                    label 'docker'  // Якщо потрібно обрати агент за міткою (не обов'язково)
+                }
+            }
             steps {
-                sh 'java --version'
+                sh 'mvn --version'
             }
         }
     }
